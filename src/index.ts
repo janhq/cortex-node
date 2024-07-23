@@ -158,6 +158,7 @@ export class OpenAI extends Core.APIClient {
   audio: API.Audio = new API.Audio(this);
   moderations: API.Moderations = new API.Moderations(this);
   models: API.Models = new API.Models(this);
+  engines: API.Engines = new API.Engines(this);
   fineTuning: API.FineTuning = new API.FineTuning(this);
   beta: API.Beta = new API.Beta(this);
   batches: API.Batches = new API.Batches(this);
