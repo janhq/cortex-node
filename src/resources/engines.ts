@@ -62,9 +62,9 @@ export interface Engine {
 
   version: string;
   /**
-   * If the engine is initalized.
+   * The status of the engine.
    */
-  initalized: boolean;
+  status: string;
 }
 
 export namespace Engines {

@@ -58,8 +58,11 @@ export class Models extends APIResource {
     return this._client.get(`/models/abort-download/${downloadId}`);
   }
 
+  /**
+   * Update a model
+   */
   update(model: string, body: Record<string, unknown>, options?: Core.RequestOptions) {
-    return this._client.post(`/models/${model}/config`, { body, ...options });
+    return this._client.patch(`/models/${model}`, { body, ...options });
   }
 }
 
@@ -91,6 +94,11 @@ export interface Model {
    * The organization that owns the model.
    */
   owned_by: string;
+
+  /**
+   * The model's engine
+   */
+  engine?: string;
 }
 
 export interface ModelDeleted {
