@@ -35,6 +35,17 @@ export class Engines extends APIResource {
   init(engine: string, options?: Core.RequestOptions): Core.APIPromise<Engine> {
     return this._client.post(`/engines/${engine}/init`, options);
   }
+
+  /**
+   * Update the engine instance with the given name.
+   */
+  update(
+    engine: string,
+    body: Record<string, unknown>,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Engine> {
+    return this._client.patch(`/engines/${engine}`, { body, ...options });
+  }
 }
 
 /**
