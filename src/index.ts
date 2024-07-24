@@ -296,6 +296,10 @@ export namespace OpenAI {
   export import ModelsPage = API.ModelsPage;
   export import ThreadsPage = API.Beta.ThreadsPage;
 
+  export import Engines = API.Engines;
+  export import Engine = API.Engine;
+  export import EnginesPage = API.EnginesPage;
+
   export import FineTuning = API.FineTuning;
 
   export import Beta = API.Beta;
