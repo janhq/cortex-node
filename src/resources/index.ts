@@ -44,4 +44,4 @@ export {
 export { Model, ModelDeleted, ModelsPage, Models } from './models';
 export { Moderation, ModerationCreateResponse, ModerationCreateParams, Moderations } from './moderations';
 
-export { Engine, Engines } from './engines';
+export { Engine, Engines, EnginesPage } from './engines';
