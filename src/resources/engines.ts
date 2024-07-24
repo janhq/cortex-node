@@ -1,5 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+import { Page } from 'openai/pagination';
 import * as Core from '../core';
 import { APIResource } from '../resource';
 import * as EnginesAPI from './engines';
@@ -17,8 +18,8 @@ export class Engines extends APIResource {
   /**
    * Lists the currently available engines, including local and remote engines
    */
-  list(options?: Core.RequestOptions): Core.APIPromise<Engine[]> {
-    return this._client.get(`/engines`, options);
+  list(options?: Core.RequestOptions): Core.PagePromise<EnginesPage, Engine> {
+    return this._client.getAPIList(`/engines`, EnginesPage, options);
   }
 
   /**
@@ -47,6 +48,11 @@ export class Engines extends APIResource {
     return this._client.patch(`/engines/${engine}`, { body, ...options });
   }
 }
+
+/**
+ * Note: no pagination actually occurs yet, this is for forwards-compatibility.
+ */
+export class EnginesPage extends Page<Engine> {}
 
 /**
  * An engine instance, providing basic information about the engine.
