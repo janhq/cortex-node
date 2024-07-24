@@ -5,28 +5,19 @@ import * as Core from '../core';
 import { APIResource } from '../resource';
 import * as EnginesAPI from './engines';
 
-export class InitEnginesOptions {
-  runMode?: 'CPU' | 'GPU';
-  gpuType?: 'Nvidia' | 'Others (Vulkan)';
-  instructions?: 'AVX' | 'AVX2' | 'AVX512' | undefined;
-  cudaVersion?: '11' | '12';
-  silent?: boolean;
-  vulkan?: boolean;
-}
-
 export class Engines extends APIResource {
+  /**
+   * Retrieves an engine instance, providing basic information about the engine.
+   */
+  retrieve(engine: string, options?: Core.RequestOptions): Core.APIPromise<Engine> {
+    return this._client.get(`/engines/${engine}`, options);
+  }
+
   /**
    * Lists the currently available engines, including local and remote engines
    */
   list(options?: Core.RequestOptions): Core.PagePromise<EnginesPage, Engine> {
     return this._client.getAPIList(`/engines`, EnginesPage, options);
-  }
-
-  /**
-   * Retrieves an engine instance, providing basic information about the engine.
-   */
-  get(engine: string, options?: Core.RequestOptions): Core.APIPromise<Engine> {
-    return this._client.get(`/engines/${engine}`, options);
   }
 
   /**
