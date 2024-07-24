@@ -86,4 +86,5 @@ export interface Engine {
 
 export namespace Engines {
   export import Engine = EnginesAPI.Engine;
+  export import EnginesPage = EnginesAPI.EnginesPage;
 }
