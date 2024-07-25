@@ -5,6 +5,15 @@ import * as Core from '../core';
 import { APIResource } from '../resource';
 import * as EnginesAPI from './engines';
 
+export interface EngineInitRequestParams {
+  runMode?: 'CPU' | 'GPU';
+  gpuType?: 'Nvidia' | 'Others (Vulkan)';
+  instructions?: 'AVX' | 'AVX2' | 'AVX512' | undefined;
+  cudaVersion?: '11' | '12';
+  silent?: boolean;
+  vulkan?: boolean;
+}
+
 export class Engines extends APIResource {
   /**
    * Retrieves an engine instance, providing basic information about the engine.
@@ -24,8 +33,15 @@ export class Engines extends APIResource {
    * Initializes an engine instance with the given name.
    * It will download the engine if it is not available locally.
    */
-  init(engine: string, options?: Core.RequestOptions): Core.APIPromise<Engine> {
-    return this._client.post(`/engines/${engine}/init`, options);
+  init(
+    engine: string,
+    initOptions: EngineInitRequestParams = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Engine> {
+    return this._client.post(`/engines/${engine}/init`, {
+      body: initOptions,
+      ...options,
+    });
   }
 
   /**

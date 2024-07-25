@@ -62,6 +62,7 @@ async function defaultParseResponse<T>(props: APIResponseProps): Promise<T> {
   }
 
   const contentType = response.headers.get('content-type');
+
   const isJSON =
     contentType?.includes('application/json') || contentType?.includes('application/vnd.api+json');
   if (isJSON) {

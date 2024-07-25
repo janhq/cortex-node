@@ -45,3 +45,4 @@ export { Model, ModelDeleted, ModelsPage, Models } from './models';
 export { Moderation, ModerationCreateResponse, ModerationCreateParams, Moderations } from './moderations';
 
 export { Engine, Engines, EnginesPage } from './engines';
+export { DownloadStateEvent, DownloadStatus, DownloadType, DownloadItem, Events } from './events';
