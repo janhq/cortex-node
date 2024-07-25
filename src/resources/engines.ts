@@ -4,6 +4,17 @@ import { Page } from '../pagination';
 import * as Core from '../core';
 import { APIResource } from '../resource';
 import * as EnginesAPI from './engines';
+import { Stream } from '../streaming';
+import { DownloadStateEvent } from './events';
+
+export interface InitOptions {
+  runMode?: 'CPU' | 'GPU';
+  gpuType?: 'Nvidia' | 'Others (Vulkan)';
+  instructions?: 'AVX' | 'AVX2' | 'AVX512' | undefined;
+  cudaVersion?: '11' | '12';
+  silent?: boolean;
+  vulkan?: boolean;
+}
 
 export class Engines extends APIResource {
   /**
@@ -24,8 +35,15 @@ export class Engines extends APIResource {
    * Initializes an engine instance with the given name.
    * It will download the engine if it is not available locally.
    */
-  init(engine: string, options?: Core.RequestOptions): Core.APIPromise<Engine> {
-    return this._client.post(`/engines/${engine}/init`, options);
+  init(
+    engine: string,
+    initOptions: InitOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Engine> {
+    return this._client.post(`/engines/${engine}/init`, {
+      ...initOptions,
+      ...options,
+    });
   }
 
   /**

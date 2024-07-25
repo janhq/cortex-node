@@ -159,6 +159,7 @@ export class OpenAI extends Core.APIClient {
   moderations: API.Moderations = new API.Moderations(this);
   models: API.Models = new API.Models(this);
   engines: API.Engines = new API.Engines(this);
+  events: API.Events = new API.Events(this);
   fineTuning: API.FineTuning = new API.FineTuning(this);
   beta: API.Beta = new API.Beta(this);
   batches: API.Batches = new API.Batches(this);
@@ -299,6 +300,12 @@ export namespace OpenAI {
   export import Engines = API.Engines;
   export import Engine = API.Engine;
   export import EnginesPage = API.EnginesPage;
+
+  export import Events = API.Events;
+  export import DownloadStateEvent = API.DownloadStateEvent;
+  export import DownloadStatus = API.DownloadStatus;
+  export import DownloadType = API.DownloadType;
+  export import DownloadItem = API.DownloadItem;
 
   export import FineTuning = API.FineTuning;
 
