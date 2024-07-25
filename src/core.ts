@@ -62,6 +62,10 @@ async function defaultParseResponse<T>(props: APIResponseProps): Promise<T> {
   }
 
   const contentType = response.headers.get('content-type');
+
+  if (contentType === 'text/event-stream') {
+    return Stream.fromSSEResponse(response, props.controller) as any;
+  }
   const isJSON =
     contentType?.includes('application/json') || contentType?.includes('application/vnd.api+json');
   if (isJSON) {
