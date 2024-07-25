@@ -55,7 +55,7 @@ export class Models extends APIResource {
    * Abort a model download.
    */
   abortDownload(downloadId: string) {
-    return this._client.delete(`/models/pull/${downloadId}`);
+    return this._client.delete(`/models/${downloadId}/pull`);
   }
 
   /**

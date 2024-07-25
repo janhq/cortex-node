@@ -4,10 +4,8 @@ import { Page } from '../pagination';
 import * as Core from '../core';
 import { APIResource } from '../resource';
 import * as EnginesAPI from './engines';
-import { Stream } from '../streaming';
-import { DownloadStateEvent } from './events';
 
-export interface InitOptions {
+export interface EngineInitRequestParams {
   runMode?: 'CPU' | 'GPU';
   gpuType?: 'Nvidia' | 'Others (Vulkan)';
   instructions?: 'AVX' | 'AVX2' | 'AVX512' | undefined;
@@ -37,11 +35,11 @@ export class Engines extends APIResource {
    */
   init(
     engine: string,
-    initOptions: InitOptions = {},
+    initOptions: EngineInitRequestParams = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<Engine> {
     return this._client.post(`/engines/${engine}/init`, {
-      ...initOptions,
+      body: initOptions,
       ...options,
     });
   }
