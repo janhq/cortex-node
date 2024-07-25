@@ -76,9 +76,7 @@ export interface DownloadState {
   children: DownloadItem[];
 }
 
-export interface DownloadStateEvent {
-  data: DownloadState[];
-}
+export type DownloadStateEvent = DownloadState[];
 
 export class Models extends APIResource {
   /**
@@ -140,7 +138,7 @@ export class Models extends APIResource {
     return this._client.patch(`/models/${model}`, { body, ...options });
   }
 
-  downloadEvent(options?: Core.RequestOptions) {
+  downloadEvent(options?: Core.RequestOptions): Core.APIPromise<Stream<DownloadStateEvent>> {
     return this._client.get(`/events/download`, options) as Core.APIPromise<Stream<DownloadStateEvent>>;
   }
 }
