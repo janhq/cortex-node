@@ -10,7 +10,7 @@ export class Events extends APIResource {
    * Get download events.
    */
   downloadEvent(): Core.APIPromise<Stream<DownloadStateEvent>> {
-    return this._client.get(`/events/download`, {
+    return this._client.get(`system/events/download`, {
       stream: true,
     }) as Core.APIPromise<Stream<DownloadStateEvent>>;
   }
