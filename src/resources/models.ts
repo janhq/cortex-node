@@ -99,6 +99,11 @@ export interface Model {
    * The model's engine
    */
   engine?: string;
+
+  /**
+   * The model version
+   */
+  version?: string;
 }
 
 export interface ModelDeleted {
