@@ -8,12 +8,96 @@ import { Stream } from '../streaming';
 export class Events extends APIResource {
   /**
    * Get download events.
+   * @deprecated Use `download` instead.
    */
   downloadEvent(): Core.APIPromise<Stream<DownloadStateEvent>> {
-    return this._client.get(`system/events/download`, {
+    return this._client.get(`/system/events/download`, {
       stream: true,
     }) as Core.APIPromise<Stream<DownloadStateEvent>>;
   }
+
+  /**
+   * Get download events.
+   */
+  download(): Core.APIPromise<Stream<DownloadStateEvent>> {
+    return this._client.get(`/system/events/download`, {
+      stream: true,
+    }) as Core.APIPromise<Stream<DownloadStateEvent>>;
+  }
+
+  /**
+   * Get model status.
+   */
+  model(): Core.APIPromise<Stream<EventsAPI.ModelEvent>> {
+    return this._client.get(`/system/events/model`, {
+      stream: true,
+    }) as Core.APIPromise<Stream<EventsAPI.ModelEvent>>;
+  }
+
+  /**
+   * Get resources status.
+   */
+  resources(): Core.APIPromise<Stream<EventsAPI.ResourceEvent>> {
+    return this._client.get(`/system/events/resources`, {
+      stream: true,
+    }) as Core.APIPromise<Stream<EventsAPI.ResourceEvent>>;
+  }
+}
+
+export interface ResourceEvent {
+  data: ResourceStatus;
+}
+
+export interface ResourceStatus {
+  mem: UsedMemInfo;
+  cpu: {
+    usage: number;
+  };
+}
+
+export interface UsedMemInfo {
+  total: number;
+  used: number;
+}
+
+const ModelLoadingEvents = [
+  'starting',
+  'stopping',
+  'started',
+  'stopped',
+  'starting-failed',
+  'stopping-failed',
+  'model-downloaded',
+  'model-downloaded-failed',
+  'model-deleted',
+] as const;
+
+export type ModelId = string;
+
+export type ModelLoadingEvent = (typeof ModelLoadingEvents)[number];
+
+const AllModelStates = ['starting', 'stopping', 'started'] as const;
+
+export type ModelState = (typeof AllModelStates)[number];
+
+export interface ModelStatus {
+  model: ModelId;
+  status: ModelState;
+  metadata: Record<string, unknown>;
+}
+
+export interface ModelEvent {
+  model: ModelId;
+  event: ModelLoadingEvent;
+  metadata: Record<string, unknown>;
+}
+
+export const EmptyModelEvent = {};
+export interface ModelStatusAndEvent {
+  data: {
+    status: Record<ModelId, ModelStatus>;
+    event: ModelEvent | typeof EmptyModelEvent;
+  };
 }
 
 export enum DownloadStatus {
@@ -93,4 +177,13 @@ export namespace Events {
   export import DownloadStatus = EventsAPI.DownloadStatus;
   export import DownloadType = EventsAPI.DownloadType;
   export import DownloadItem = EventsAPI.DownloadItem;
+  export import ModelStatus = EventsAPI.ModelStatus;
+  export import ModelEvent = EventsAPI.ModelEvent;
+  export import ModelId = EventsAPI.ModelId;
+  export import ModelLoadingEvent = EventsAPI.ModelLoadingEvent;
+  export import ModelState = EventsAPI.ModelState;
+  export import ModelStatusAndEvent = EventsAPI.ModelStatusAndEvent;
+  export import ResourceEvent = EventsAPI.ResourceEvent;
+  export import ResourceStatus = EventsAPI.ResourceStatus;
+  export import UsedMemInfo = EventsAPI.UsedMemInfo;
 }
