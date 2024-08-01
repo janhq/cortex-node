@@ -163,6 +163,7 @@ export class OpenAI extends Core.APIClient {
   fineTuning: API.FineTuning = new API.FineTuning(this);
   beta: API.Beta = new API.Beta(this);
   batches: API.Batches = new API.Batches(this);
+  system: API.System = new API.System(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -306,6 +307,8 @@ export namespace OpenAI {
   export import DownloadStatus = API.DownloadStatus;
   export import DownloadType = API.DownloadType;
   export import DownloadItem = API.DownloadItem;
+
+  export import System = API.System;
 
   export import FineTuning = API.FineTuning;
 
