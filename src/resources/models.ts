@@ -104,6 +104,11 @@ export interface Model {
    * The model version
    */
   version?: string;
+
+  /**
+   * The model's engine version required to run the model
+   */
+  engine_version?: string;
 }
 
 export interface ModelDeleted {
