@@ -10,11 +10,24 @@ import * as AssistantsAPI from '../assistants';
 import * as MessagesAPI from './messages';
 import * as RunsAPI from './runs/runs';
 import { Stream } from '../../../streaming';
-import { Page } from '../../../pagination';
+import { CursorPageParams, Page } from '../../../pagination';
 
-/**
- * Note: no pagination actually occurs yet, this is for forwards-compatibility.
- */
+export interface ThreadListParams extends CursorPageParams {
+  /**
+   * A cursor for use in pagination. `before` is an object ID that defines your place
+   * in the list. For instance, if you make a list request and receive 100 objects,
+   * ending with obj_foo, your subsequent call can include before=obj_foo in order to
+   * fetch the previous page of the list.
+   */
+  before?: string;
+
+  /**
+   * Sort order by the `created_at` timestamp of the objects. `asc` for ascending
+   * order and `desc` for descending order.
+   */
+  order?: 'asc' | 'desc';
+}
+
 export class ThreadsPage extends Page<Thread> {}
 
 export class Threads extends APIResource {
@@ -43,8 +56,11 @@ export class Threads extends APIResource {
   /**
    * Lists threads
    */
-  list(options?: Core.RequestOptions): Core.PagePromise<ThreadsPage, Thread> {
-    return this._client.getAPIList('/threads', ThreadsPage, options);
+  list(query?: ThreadListParams, options?: Core.RequestOptions): Core.PagePromise<ThreadsPage, Thread> {
+    return this._client.getAPIList('/threads', ThreadsPage, {
+      query,
+      ...options,
+    });
   }
 
   /**
