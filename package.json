@@ -25,7 +25,7 @@
     "fix": "eslint --fix --ext ts,js ."
   },
   "dependencies": {
-    "@types/node": "^18.11.18",
+    "@types/node": "^18.19.38",
     "@types/node-fetch": "^2.6.4",
     "abort-controller": "^3.0.0",
     "agentkeepalive": "^4.2.1",
